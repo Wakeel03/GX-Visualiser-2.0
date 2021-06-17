@@ -67,6 +67,7 @@ public class Menu {
 	CheckBox cb_no_fill;
 	
 	private Spinner<Integer> num_sides_picker;
+	private Spinner<Integer> sides_picker;
 	private Spinner<Integer> stroke_picker;
 	private Spinner<Integer> size_picker;
 	private Spinner<Integer> radius_picker;
@@ -202,6 +203,7 @@ public class Menu {
 				}
 				
 				if (type.equals("Regular") || clicked_points.size() / 2 == num_sides_picker.getValue()) {
+					System.out.println(num_sides_picker.getValue());
 					DrawPolygon polygon = new DrawPolygon(num_sides_picker.getValue(), stroke_picker.getValue(), cb_no_fill.isSelected() ? null : color, type, size_picker.getValue(), polygon_stroke_color, mouseCoordinates[0], mouseCoordinates[1], clicked_points);
 					sc.addShape(polygon);
 				}
@@ -226,12 +228,12 @@ public class Menu {
 				sc.addPointCircle(new double[] {mouseCoordinates[0], mouseCoordinates[1]});
 
 				
-				if (clicked_points.size() / 2 == num_sides_picker.getValue()) {
-					DrawPolygon polygon = new DrawPolygon(num_sides_picker.getValue(), stroke_picker.getValue(), null, "Irregular", size_picker.getValue(), polygon_stroke_color, mouseCoordinates[0], mouseCoordinates[1], clicked_points);
+				if (clicked_points.size() / 2 == sides_picker.getValue()) {
+					DrawPolygon polygon = new DrawPolygon(sides_picker.getValue(), stroke_picker.getValue(), null, "Irregular", size_picker.getValue(), polygon_stroke_color, mouseCoordinates[0], mouseCoordinates[1], clicked_points);
 					sc.addShape(polygon);
 				}
 					
-				if (clicked_points.size() / 2 == num_sides_picker.getValue()) {
+				if (clicked_points.size() / 2 == sides_picker.getValue()) {
 					for (int i = 0; i < clicked_points.size(); i++) {
 						current_points_to_transform.add(clicked_points.get(i));
 					}
@@ -852,11 +854,11 @@ public class Menu {
 		
 		Label lbl_polygon_sides = new Label("Vertices");
 		
-		num_sides_picker = new Spinner<Integer>(3, 20, 1);
-		num_sides_picker.setEditable(true);
-		num_sides_picker.setPrefSize(50, 30);
+		sides_picker = new Spinner<Integer>(3, 20, 1);
+		sides_picker.setEditable(true);
+		sides_picker.setPrefSize(50, 30);
 		
-		polygon_total_sides.getChildren().addAll(lbl_polygon_sides, num_sides_picker);		
+		polygon_total_sides.getChildren().addAll(lbl_polygon_sides, sides_picker);		
 		
 		VBox polygon_fill = new VBox(12);
 		
